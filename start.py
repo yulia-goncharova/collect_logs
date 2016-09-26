@@ -57,13 +57,12 @@ def index(config, mins):
 
 
     filter = request.query.get('filter', '')
-    log = get_log(config, datetime.now() - timedelta(minutes=int(mins)), filter)
     try:
-        pass
+        log = get_log(config, datetime.now() - timedelta(minutes=int(mins)), filter)
     except Exception, e:
         return str(e)
     if not log:
-        return template('logs not found')
+        return 'logs not found'
     return SimpleTemplate('<b>Data from logs for {} minutes:</b><br><br>{}'.format(mins, log)).render()
 
 if __name__ == '__main__':
