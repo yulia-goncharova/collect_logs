@@ -1,4 +1,5 @@
-import ConfigParser
+# -*- coding: utf-8 -*-
+
 import glob
 import os
 import re
@@ -7,23 +8,30 @@ from bottle import SimpleTemplate
 from bottle import run, template, get, request
 
 from utils.read_file import reverse_readline
+from utils.gen_reg_exp import generate_regexp_by_format
 from settings.settings import HOST, PORT
+from settings.configs import CONFIGS
 
-config = ConfigParser.RawConfigParser()
 
+def get_log(config_name, date_bound, line_filter=''):
+    current_conf = CONFIGS.get(config_name)
+    if not current_conf:
+        raise Exception('Не найдена конфигурация {}',format(config_name))
 
-def get_log(date_bound, line_filter=''):
-    config.read('settings/collect_logs.cfg')
     dataset = []
 
-    for name in config.sections():
-        path = config.get(name, 'path')
-        mask = config.get(name, 'mask')
-        time_regexp = config.get(name, 'time_regexp')
-        time_format = config.get(name, 'time_format')
+    for conf in current_conf:
+        if not conf.get('enabled'):
+            continue
+        name = conf.get('name')
+        time_format = conf.get('time_format')
+        time_regexp = generate_regexp_by_format(time_format)
+        print conf, time_regexp
 
-        os.chdir(path)
-        for file in glob.glob(mask):
+        os.chdir(conf.get('path'))
+        print os.curdir, glob.glob('*')
+        print glob.glob(conf.get('mask'))
+        for file in glob.glob(conf.get('mask')):
             print 'loading {},{}'.format(file, datetime.now())
             for line in reverse_readline(file):
                 if line_filter and not (line_filter in line or line_filter in name):
@@ -44,13 +52,16 @@ def get_log(date_bound, line_filter=''):
     return '<br>'.join([l['line'] for l in dataset_sorted])
 
 
-@get('/<mins:int>')
-def index(mins):
+@get('/<config>/<mins:int>')
+def index(config, mins):
+
+
     filter = request.query.get('filter', '')
+    log = get_log(config, datetime.now() - timedelta(minutes=int(mins)), filter)
     try:
-        log = get_log( datetime.now() - timedelta(minutes=int(mins)), filter)
+        pass
     except Exception, e:
-        return template(str(e))
+        return str(e)
     if not log:
         return template('logs not found')
     return SimpleTemplate('<b>Data from logs for {} minutes:</b><br><br>{}'.format(mins, log)).render()
