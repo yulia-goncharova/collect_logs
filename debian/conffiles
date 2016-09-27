@@ -1,3 +1,3 @@
-/etc/supervisor/conf.d/supervisor-collogs.conf
-/opt/servplus/ds/devtools/collogs/settings/settings.py
-/opt/servplus/ds/devtools/collogs/settings/configs.py
+/etc/supervisor/conf.d/supervisor-collectlogs.conf
+/opt/servplus/ds/collectlogs/settings/settings.py
+/opt/servplus/ds/collectlogs/settings/configs.py

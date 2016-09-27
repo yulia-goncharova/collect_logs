@@ -1,11 +1,11 @@
-Source: servplus-ds-collectlog
+Source: servplus-ds-collectlogs
 Section: python
 Priority: optional
 Maintainer: servplus ds <ds@servplus.ru>
 Build-Depends: debhelper (>= 9.0.0)
 Standards-Version: 3.9.5
 Homepage: http://www.servplus.ru/
-Package: servplus-ds-collectlog
+Package: servplus-ds-collectlogs
 Version: 0.1.4
 Architecture: all
 Depends: supervisor
