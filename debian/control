@@ -7,7 +7,6 @@ Standards-Version: 3.9.5
 Homepage: http://www.servplus.ru/
 
 Package: servplus-ds-collectlogs
-Version: 0.1.4
 Architecture: all
 Depends: supervisor
 Description: инструмент для просмотра логов SuperMag-DS
