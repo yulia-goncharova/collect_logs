@@ -1,0 +1,5 @@
+settings opt/servplus/ds/collectlogs/
+utils opt/servplus/ds/collectlogs/
+*.py opt/servplus/ds/collectlogs/
+
+conf/supervisor-collectlogs.conf etc/supervisor/conf.d/
