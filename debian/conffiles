@@ -1,3 +1,2 @@
-/etc/supervisor/conf.d/supervisor-collectlogs.conf
 /opt/servplus/ds/collectlogs/settings/settings.py
 /opt/servplus/ds/collectlogs/settings/configs.py
