@@ -16,7 +16,7 @@ from settings.configs import CONFIGS
 def get_log(config_name, date_bound, line_filter=''):
     current_conf = CONFIGS.get(config_name)
     if not current_conf:
-        raise Exception('Не найдена конфигурация {}',format(config_name))
+        raise Exception('Не найдена конфигурация {}'.format(config_name))
 
     dataset = []
 
@@ -24,13 +24,13 @@ def get_log(config_name, date_bound, line_filter=''):
         if not conf.get('enabled'):
             continue
         name = conf.get('name')
+        path = conf.get('path')
         time_format = conf.get('time_format')
         time_regexp = generate_regexp_by_format(time_format)
-        print conf, time_regexp
 
-        os.chdir(conf.get('path'))
-        print os.curdir, glob.glob('*')
-        print glob.glob(conf.get('mask'))
+        if not os.path.exists(path):
+            continue
+        os.chdir(path)
         for file in glob.glob(conf.get('mask')):
             print 'loading {},{}'.format(file, datetime.now())
             for line in reverse_readline(file):
@@ -54,13 +54,11 @@ def get_log(config_name, date_bound, line_filter=''):
 
 @get('/<config>/<mins:int>')
 def index(config, mins):
-
-
     filter = request.query.get('filter', '')
     try:
         log = get_log(config, datetime.now() - timedelta(minutes=int(mins)), filter)
     except Exception, e:
-        return str(e)
+        return e.message
     if not log:
         return 'logs not found'
     return SimpleTemplate('<b>Data from logs for {} minutes:</b><br><br>{}'.format(mins, log)).render()

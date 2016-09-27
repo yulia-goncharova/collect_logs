@@ -1,0 +1,12 @@
+Source: servplus-ds-collectlog
+Section: python
+Priority: optional
+Maintainer: servplus ds <ds@servplus.ru>
+Build-Depends: debhelper (>= 9.0.0)
+Standards-Version: 3.9.5
+Homepage: http://www.servplus.ru/
+Package: servplus-ds-collectlog
+Version: 0.1.4
+Architecture: all
+Depends: supervisor
+Description: инструмент для просмотра логов SuperMag-DS

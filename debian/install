@@ -1,0 +1,3 @@
+collogs opt/servplus/ds/devtools/
+
+supervisor-collogs.conf etc/supervisor/conf.d/
