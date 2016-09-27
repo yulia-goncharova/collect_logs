@@ -1,4 +1,5 @@
 settings/__init__.py opt/servplus/ds/collectlogs/
+settings/settings.py opt/servplus/ds/collectlogs/
 utils opt/servplus/ds/collectlogs/
 *.py opt/servplus/ds/collectlogs/
 
