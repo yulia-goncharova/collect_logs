@@ -1,2 +1,2 @@
-../settings/settings.py
-settings/configs.py
+/opt/servplus/ds/collectlogs/settings/settings.py
+/opt/servplus/ds/collectlogs/settings/configs.py
